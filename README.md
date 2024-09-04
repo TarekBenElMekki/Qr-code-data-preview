@@ -1,0 +1,1 @@
+# Qr-code-data-preview
