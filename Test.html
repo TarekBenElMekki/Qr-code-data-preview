@@ -19,7 +19,10 @@
 </head>
 <body>
     <h1>Qr-code-data-preview</h1>
-    <div class="content" id="preview"></div>
+    <div class="content" id="preview">
+        <!-- Static data that will always be displayed -->
+        <p>This is the static information that will always be shown.</p>
+    </div>
 
     <script>
         // Function to extract and display data from the URL
@@ -28,9 +31,10 @@
             const data = urlParams.get('data'); // Get the 'data' parameter from the URL
 
             if (data) {
-                document.getElementById('preview').innerText = decodeURIComponent(data);
+                // Add the dynamic data from the QR code to the existing content
+                document.getElementById('preview').innerHTML += '<p>' + decodeURIComponent(data) + '</p>';
             } else {
-                document.getElementById('preview').innerText = 'No data found in the QR code URL.';
+                document.getElementById('preview').innerHTML += '<p>No data found in the QR code URL.</p>';
             }
         }
 
@@ -39,5 +43,3 @@
     </script>
 </body>
 </html>
-
-
