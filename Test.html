@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Data Preview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        .content {
+            border: 2px solid #333;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Data Preview</h1>
+    <div class="content" id="preview"></div>
+
+    <script>
+        // Function to extract and display data from the URL
+        function previewData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = urlParams.get('data'); // Get the 'data' parameter from the URL
+
+            if (data) {
+                document.getElementById('preview').innerText = decodeURIComponent(data);
+            } else {
+                document.getElementById('preview').innerText = 'No data found in the QR code URL.';
+            }
+        }
+
+        // Call the function on page load
+        window.onload = previewData;
+    </script>
+</body>
+</html>
+
