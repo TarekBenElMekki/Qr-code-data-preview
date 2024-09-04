@@ -7,35 +7,63 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 50px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
         }
-        .content {
+        .badge {
+            text-align: center;
             border: 2px solid #333;
             padding: 20px;
-            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            width: 300px;
+        }
+        .badge img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .badge .name, .badge .phone {
+            font-size: 18px;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <h1>Qr-code-data-preview</h1>
-    <div class="content" id="preview">
-        <!-- Static data that will always be displayed -->
-        <p>This is the static information that will always be shown.</p>
+    <div class="badge" id="preview">
+        <!-- The badge content will be populated by JavaScript -->
     </div>
 
     <script>
         // Function to extract and display data from the URL
         function previewData() {
             const urlParams = new URLSearchParams(window.location.search);
-            const data = urlParams.get('data'); // Get the 'data' parameter from the URL
+            const imageUrl = urlParams.get('image'); // Get the 'image' parameter from the URL
+            const name = urlParams.get('name'); // Get the 'name' parameter from the URL
+            const phone = urlParams.get('phone'); // Get the 'phone' parameter from the URL
 
-            if (data) {
-                // Add the dynamic data from the QR code to the existing content
-                document.getElementById('preview').innerHTML += '<p>' + decodeURIComponent(data) + '</p>';
+            let badgeContent = '';
+
+            if (imageUrl) {
+                badgeContent += '<img src="' + decodeURIComponent(imageUrl) + '" alt="Badge Image">';
             } else {
-                document.getElementById('preview').innerHTML += '<p>No data found in the QR code URL.</p>';
+                badgeContent += '<img src="default-image.png" alt="Default Badge Image">'; // Optional: Fallback image
             }
+
+            if (name) {
+                badgeContent += '<div class="name">' + decodeURIComponent(name) + '</div>';
+            }
+
+            if (phone) {
+                badgeContent += '<div class="phone">' + decodeURIComponent(phone) + '</div>';
+            }
+
+            document.getElementById('preview').innerHTML = badgeContent;
         }
 
         // Call the function on page load
